@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        nav {
+            background-color: #333;
+            color: #fff;
+            padding: 10px;
+            height: 70px;
+        }
+        nav ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        nav ul li {
+            margin-left: 20px;
+            display: inline;
+            margin-right: 10px;
+        }
+        nav ul li a {
+            color: #fff;
+            text-decoration: none;
+        }
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        table {
+            width: 80%; /* 전체 너비에 대한 비율 조정 */
+            margin: 20px; /* 가운데 정렬 */
+            border-collapse: collapse;
+        }
+        th, td {
+            padding: 10px; /* 셀 내부 여백 */
+            text-align: center;
+            border: 1px solid #000000;
+        }
+        .top {
+            background-color: #f2f2f2;
+            font-weight: bold;
+        }
+        .btn-reg {
+            padding: 8px 16px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+        }
+        .btn-reg:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <ul>
+            <li><a href="/connections">Home</a></li>
+
+        </ul>
+    </nav>
+
+    <table id="vmList">
+        <thead>
+            <tr>
+                <th class="top" style="width: 30%;">Name</th> <!-- 필드 너비 조정 -->
+                <th class="top" style="width: 30%;">System ID</th> <!-- 필드 너비 조정 -->
+                <th class="top" style="width: 40%;">Action</th> <!-- 필드 너비 조정 -->
+            </tr>
+        </thead>
+        <tbody>
+            {% for vm in only_csp_list %}
+                <tr>
+                    <td>{{ vm.get_name_id }}</td>
+                    <td>{{ vm.get_system_id }}</td>
+                    <td>
+                        <form method="post" action="/connections/{{ connectionName }}">
+                            <input type="hidden" name="name_id" value="{{ vm.get_name_id }}">
+                            <input type="hidden" name="system_id" value="{{ vm.get_system_id }}">
+                            <button type="submit" class="btn btn-reg">Regist</button>
+                        </form>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>
